@@ -4,7 +4,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>io.codescan</groupId>
+  <groupId>com.contrastsecurity</groupId>
   <artifactId>sarif-java</artifactId>
   <version>1.0</version>
   <name>sarif-java</name>
@@ -21,21 +21,6 @@
       <url>http://www.opensource.org/licenses/mit-license.php</url>
     </license>
   </licenses>
-
-  <developers>
-    <developer>
-      <name>Barys Yakavita</name>
-      <email>barys.yakavita@codescan.io</email>
-      <organization>CodeScan Enterprises LLC</organization>
-      <organizationUrl>https://codescan.io</organizationUrl>
-    </developer>
-  </developers>
-
-  <scm>
-    <connection>scm:git:git://github.com/VillageChief/sarif-java.git</connection>
-    <developerConnection>scm:git:ssh://github.com:VillageChief/sarif-java.git</developerConnection>
-    <url>https://github.com/VillageChief/sarif-java/tree/master</url>
-  </scm>
 
   <dependencies>
     <dependency>
