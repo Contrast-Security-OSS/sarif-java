@@ -3,7 +3,7 @@ package io.codescan.sarif.model;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -33,7 +33,7 @@ public class ThreadFlow {
      * A temporally ordered array of 'threadFlowLocation' objects, each of which describes a location visited by the
      * tool while producing the result.
      */
-    private Collection<ThreadFlowLocation> locations;
+    private List<ThreadFlowLocation> locations;
     /**
      * Key/value pairs that provide additional information about the thread flow.
      */
