@@ -11,5 +11,5 @@ public class Rule {
 
     private String name;
 
-    private MultiformatMessage help;
+    private MultiformatMessageString help;
 }

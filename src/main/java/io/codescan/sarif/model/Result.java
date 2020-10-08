@@ -1,6 +1,8 @@
 package io.codescan.sarif.model;
 
 import java.util.List;
+import java.util.Set;
+
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -22,6 +24,11 @@ public class Result {
     private Rule rule;
 
     /**
+     * A value specifying the severity level of the result.
+     */
+    private Level level;
+
+    /**
      * A message that describes the result. The first sentence of the message only will be displayed when visible
      * space is limited.
      */
@@ -32,4 +39,16 @@ public class Result {
      * the result can only be corrected by making a change at every specified location.
      */
     private List<Location> locations;
+
+    private String guid;
+    private String correlationGuid;
+    private Integer occuranceCount;
+    private Set<Stack> stacks;
+    private List<CodeFlow> codeFlows;
+    private List<Location> relatedLocations;
+    private BaselineState baselineState;
+    private Number rank;
+    private String hostedViewerUri;
+
+    private PropertyBag properties;
 }

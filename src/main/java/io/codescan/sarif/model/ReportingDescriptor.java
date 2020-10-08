@@ -47,20 +47,20 @@ public class ReportingDescriptor {
      * A concise description of the report. Should be a single sentence that is understandable when visible space is
      * limited to a single line of text.
      */
-    private MultiformatMessage shortDescription;
+    private MultiformatMessageString shortDescription;
 
     /**
      * A description of the report. Should, as far as possible, provide details sufficient to enable resolution of any
      * problem indicated by the result.
      */
-    private MultiformatMessage fullDescription;
+    private MultiformatMessageString fullDescription;
 
     /**
      * A set of name/value pairs with arbitrary names. Each value is a multiformatMessageString object, which holds
      * message strings in plain text and (optionally) Markdown format. The strings can include placeholders, which can
      * be used to construct a message in combination with an arbitrary number of additional string arguments.
      */
-    private MultiformatMessage messageStrings;
+    private MultiformatMessageString messageStrings;
 
     /**
      * Default reporting configuration information.
@@ -75,7 +75,7 @@ public class ReportingDescriptor {
     /**
      * Provides the primary documentation for the report, useful when there is no online documentation.
      */
-    private MultiformatMessage help;
+    private MultiformatMessageString help;
 
     /**
      * An array of objects that describe relationships between this reporting descriptor and others.

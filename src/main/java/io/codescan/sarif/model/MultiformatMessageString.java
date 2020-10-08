@@ -3,6 +3,7 @@ package io.codescan.sarif.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 /**
  * A message string or message format string rendered in multiple formats.
@@ -10,19 +11,23 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MultiformatMessage {
+@Accessors(chain = true)
+public class MultiformatMessageString {
 
     /**
      * A plain text message string or format string.
      */
     private String text;
-
     /**
      * A Markdown message string or format string.
      */
     private String markdown;
+    /**
+     * Key/value pairs that provide additional information about the message.
+     */
+    private PropertyBag properties;
 
-    public MultiformatMessage(String text) {
+    public MultiformatMessageString(String text) {
         this.text = text;
     }
 }

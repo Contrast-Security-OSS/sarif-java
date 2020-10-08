@@ -39,12 +39,12 @@ public class ToolComponent {
     /**
      * A brief description of the tool component.
      */
-    private MultiformatMessage shortDescription;
+    private MultiformatMessageString shortDescription;
 
     /**
      * A comprehensive description of the tool component.
      */
-    private MultiformatMessage fullDescription;
+    private MultiformatMessageString fullDescription;
 
     /**
      * The name of the tool component along with its version and any other useful identifying information, such as its locale.
@@ -88,7 +88,7 @@ public class ToolComponent {
      * placeholders, which can be used to construct a message in combination with an arbitrary number of additional
      * string arguments.
      */
-    private MultiformatMessage globalMessageStrings;
+    private MultiformatMessageString globalMessageStrings;
 
     /**
      * An array of reportingDescriptor objects relevant to the notifications related to the configuration and runtime
