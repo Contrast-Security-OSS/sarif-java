@@ -1,6 +1,8 @@
 package io.codescan.sarif.model;
 
 import java.util.List;
+import java.util.Map;
+
 import lombok.Data;
 
 /**
@@ -88,7 +90,7 @@ public class ToolComponent {
      * placeholders, which can be used to construct a message in combination with an arbitrary number of additional
      * string arguments.
      */
-    private MultiformatMessageString globalMessageStrings;
+    private Map<String, MultiformatMessageString> globalMessageStrings;
 
     /**
      * An array of reportingDescriptor objects relevant to the notifications related to the configuration and runtime

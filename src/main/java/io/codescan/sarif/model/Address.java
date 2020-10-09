@@ -1,11 +1,13 @@
 package io.codescan.sarif.model;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 /**
  * A physical or virtual address, or a range of addresses, in an 'addressable region' (memory or a binary file).
  */
 @Data
+@Accessors(chain = true)
 public class Address {
 
     /**

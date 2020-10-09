@@ -7,6 +7,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import io.codescan.sarif.model.PropertyBag;
 
+import java.time.Instant;
+
 public class SarifJsonSerializer {
 
     private SarifJsonSerializer() {}
@@ -16,8 +18,9 @@ public class SarifJsonSerializer {
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 
         SimpleModule module =
-                new SimpleModule("PropertyBagSerializer", new Version(1, 0, 0, null, null, null));
+                new SimpleModule("CustomSerializers", new Version(1, 0, 0, null, null, null));
         module.addSerializer(PropertyBag.class, new PropertyBagSerializer());
+        module.addSerializer(Instant.class, new InstantSerializer()); // handle sarif data-time format
         mapper.registerModule(module);
 
         final String sarifJson = mapper.writeValueAsString(obj);

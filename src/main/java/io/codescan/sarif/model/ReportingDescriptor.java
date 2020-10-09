@@ -1,6 +1,8 @@
 package io.codescan.sarif.model;
 
 import java.util.List;
+import java.util.Map;
+
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -60,7 +62,7 @@ public class ReportingDescriptor {
      * message strings in plain text and (optionally) Markdown format. The strings can include placeholders, which can
      * be used to construct a message in combination with an arbitrary number of additional string arguments.
      */
-    private MultiformatMessageString messageStrings;
+    private Map<String, MultiformatMessageString> messageStrings;
 
     /**
      * Default reporting configuration information.

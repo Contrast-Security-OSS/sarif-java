@@ -9,7 +9,7 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class SarifJsonSerializerTests {
+public class PropertyBagSerializerTests {
 
     @Test
     public void propertyBagArbitraryKVs() throws Exception {
