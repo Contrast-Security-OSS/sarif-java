@@ -8,14 +8,14 @@
   <artifactId>sarif-java</artifactId>
   <version>1.0.0</version>
   <name>sarif-java</name>
-  <description>Library provides POJO classes used to build SARIF model.</description>
+  <description>Library provides Data Value classes used to build SARIF model.</description>
   <url>https://github.com/Contrast-Security-OSS/sarif-java</url>
 
   <properties>
     <java.version>1.8</java.version>
     <junit.jupiter.version>5.6.2</junit.jupiter.version>
-    <lombok.version>1.18.2</lombok.version>
     <jackson.databind.version>2.11.2</jackson.databind.version>
+    <autovalue.version>1.7.4</autovalue.version>
   </properties>
 
   <licenses>
@@ -32,17 +32,27 @@
       <version>${jackson.databind.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <version>${lombok.version}</version>
-      <scope>provided</scope>
-    </dependency>
-
-    <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
       <version>${junit.jupiter.version}</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.auto.value</groupId>
+      <artifactId>auto-value-annotations</artifactId>
+      <version>${autovalue.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.auto.value</groupId>
+      <artifactId>auto-value</artifactId>
+      <version>${autovalue.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains</groupId>
+      <artifactId>annotations</artifactId>
+      <version>RELEASE</version>
+      <scope>compile</scope>
     </dependency>
   </dependencies>
 

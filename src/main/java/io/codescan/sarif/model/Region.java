@@ -1,52 +1,83 @@
 package io.codescan.sarif.model;
 
-import lombok.Data;
-import lombok.experimental.Accessors;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.auto.value.AutoValue;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * A region within an artifact where a result was detected.
  */
-@Data
-@Accessors(chain = true)
-public class Region {
+@AutoValue
+public abstract class Region {
 
     /**
      * The line number of the first character in the region.
      */
-    private Integer startLine;
+    @JsonProperty("startLine")
+    @Nullable
+    public abstract Integer startLine();
 
     /**
      * The column number of the first character in the region.
      */
-    private Integer startColumn;
+    @JsonProperty("startColumn")
+    @Nullable
+    public abstract Integer startColumn();
 
     /**
      * The line number of the last character in the region.
      */
-    private Integer endLine;
+    @JsonProperty("endLine")
+    @Nullable
+    public abstract Integer endLine();
 
     /**
      * The column number of the character following the end of the region.
      */
-    private Integer endColumn;
+    @JsonProperty("endColumn")
+    @Nullable
+    public abstract Integer endColumn();
 
     /**
      * The zero-based offset from the beginning of the artifact of the first character in the region.
      */
-    private Integer charOffset;
+    @JsonProperty("charOffset")
+    @Nullable
+    public abstract Integer charOffset();
 
     /**
      * The length of the region in characters.
      */
-    private Integer charLength;
+    @JsonProperty("charLength")
+    @Nullable
+    public abstract Integer charLength();
 
     /**
      * The zero-based offset from the beginning of the artifact of the first byte in the region.
      */
-    private Integer byteOffset;
+    @JsonProperty("byteOffset")
+    @Nullable
+    public abstract Integer byteOffset();
 
     /**
      * A message relevant to the region.
      */
-    private Message message;
+    @JsonProperty("message")
+    @Nullable
+    public abstract Message message();
+    public static Region.Builder builder() {
+        return new AutoValue_Region.Builder();
+    }
+    @AutoValue.Builder
+    public abstract static class Builder {
+        public abstract Region.Builder setStartLine(Integer startLine);
+        public abstract Region.Builder setStartColumn(Integer startColumn);
+        public abstract Region.Builder setEndLine(Integer endLine);
+        public abstract Region.Builder setEndColumn(Integer endColumn);
+        public abstract Region.Builder setCharOffset(Integer charOffset);
+        public abstract Region.Builder setCharLength(Integer charLength);
+        public abstract Region.Builder setByteOffset(Integer byteOffset);
+        public abstract Region.Builder setMessage(Message message);
+        public abstract Region build();
+    }
 }

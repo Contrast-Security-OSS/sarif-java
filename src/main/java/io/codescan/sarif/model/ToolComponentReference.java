@@ -1,28 +1,47 @@
 package io.codescan.sarif.model;
 
-import lombok.Data;
-import lombok.experimental.Accessors;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.auto.value.AutoValue;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Identifies a particular toolComponent object, either the driver or an extension.
  */
-@Data
-@Accessors(chain = true)
-public class ToolComponentReference {
+@AutoValue
+public abstract class ToolComponentReference {
     /**
      * The 'name' property of the referenced toolComponent.
      */
-    private String name;
+    @JsonProperty("name")
+    @Nullable
+    public abstract String name();
     /**
      * An index into the referenced toolComponent in tool.extensions.
      */
-    private Integer index;
+    @JsonProperty("index")
+    @Nullable
+    public abstract Integer index();
     /**
      * The 'guid' property of the referenced toolComponent.
      */
-    private String guid;
+    @JsonProperty("guid")
+    @Nullable
+    public abstract String guid();
     /**
      * Key/value pairs that provide additional information about the toolComponentReference.
      */
-    private PropertyBag properties;
+    @JsonProperty("properties")
+    @Nullable
+    public abstract PropertyBag properties();
+    public static ToolComponentReference.Builder builder() {
+        return new AutoValue_ToolComponentReference.Builder();
+    }
+    @AutoValue.Builder
+    public abstract static class Builder {
+        public abstract ToolComponentReference.Builder setName(String name);
+        public abstract ToolComponentReference.Builder setIndex(Integer index);
+        public abstract ToolComponentReference.Builder setGuid(String guid);
+        public abstract ToolComponentReference.Builder setProperties(PropertyBag properties);
+        public abstract ToolComponentReference build();
+    }
 }

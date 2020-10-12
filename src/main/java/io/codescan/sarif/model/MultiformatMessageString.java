@@ -1,33 +1,42 @@
 package io.codescan.sarif.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.auto.value.AutoValue;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * A message string or message format string rendered in multiple formats.
  */
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Accessors(chain = true)
-public class MultiformatMessageString {
+@AutoValue
+public abstract class MultiformatMessageString {
 
     /**
      * A plain text message string or format string.
      */
-    private String text;
+    @JsonProperty("text")
+    @Nullable
+    public abstract String text();
     /**
      * A Markdown message string or format string.
      */
-    private String markdown;
+    @JsonProperty("markdown")
+    @Nullable
+    public abstract String markdown();
     /**
      * Key/value pairs that provide additional information about the message.
      */
-    private PropertyBag properties;
+    @JsonProperty("properties")
+    @Nullable
+    public abstract PropertyBag properties();
 
-    public MultiformatMessageString(String text) {
-        this.text = text;
+    public static MultiformatMessageString.Builder builder() {
+        return new AutoValue_MultiformatMessageString.Builder();
+    }
+    @AutoValue.Builder
+    public abstract static class Builder {
+        public abstract MultiformatMessageString.Builder setText(String text);
+        public abstract MultiformatMessageString.Builder setMarkdown(String markdown);
+        public abstract MultiformatMessageString.Builder setProperties(PropertyBag properties);
+        public abstract MultiformatMessageString build();
     }
 }

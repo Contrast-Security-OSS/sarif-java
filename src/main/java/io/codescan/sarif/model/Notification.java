@@ -1,7 +1,8 @@
 package io.codescan.sarif.model;
 
-import lombok.Data;
-import lombok.experimental.Accessors;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.auto.value.AutoValue;
+import org.jetbrains.annotations.Nullable;
 
 import java.time.Instant;
 import java.util.List;
@@ -10,43 +11,76 @@ import java.util.List;
  * Describes a condition relevant to the tool itself, as opposed to being relevant to a target being analyzed by the
  * tool.
  */
-@Data
-@Accessors(chain = true)
-public class Notification {
+@AutoValue
+public abstract class Notification {
     /**
      * The locations relevant to this notification.
      */
-    private List<Location> locations;
+    @JsonProperty("locations")
+    @Nullable
+    public abstract List<Location> locations();
     /**
      * A message that describes the condition that was encountered.
      */
-    private Message message;
+    @JsonProperty("message")
+    @Nullable
+    public abstract Message message();
     /**
      * A value specifying the severity level of the notification.
      */
-    private Level level;
+    @JsonProperty("level")
+    @Nullable
+    public abstract Level level();
     /**
      * The thread identifier of the code that generated the notification.
      */
-    private Integer threadId;
+    @JsonProperty("threadId")
+    @Nullable
+    public abstract Integer threadId();
     /**
      * The Coordinated Universal Time (UTC) date and time at which the analysis tool generated the notification.
      */
-    private Instant timeUtc;
+    @JsonProperty("timeUtc")
+    @Nullable
+    public abstract Instant timeUtc();
     /**
      * The runtime exception, if any, relevant to this notification.
      */
-    //TODO: private Exception_ exception;
+    //@JsonProperty("exception")
+    //@Nullable
+    //TODO: public abstract Exception_ exception();
     /**
      * A reference used to locate the descriptor relevant to this notification.
      */
-    private ReportingDescriptorReference descriptor;
+    @JsonProperty("descriptor")
+    @Nullable
+    public abstract ReportingDescriptorReference descriptor();
     /**
      * A reference used to locate the rule descriptor associated with this notification.
      */
-    private ReportingDescriptorReference associatedRule;
+    @JsonProperty("associatedRule")
+    @Nullable
+    public abstract ReportingDescriptorReference associatedRule();
     /**
      * Key/value pairs that provide additional information about the notification.
      */
-    private PropertyBag properties;
+    @JsonProperty("properties")
+    @Nullable
+    public abstract PropertyBag properties();
+    public static Notification.Builder builder() {
+        return new AutoValue_Notification.Builder();
+    }
+    @AutoValue.Builder
+    public abstract static class Builder {
+        public abstract Notification.Builder setLocations(List<Location> locations);
+        public abstract Notification.Builder setMessage(Message message);
+        public abstract Notification.Builder setLevel(Level level);
+        public abstract Notification.Builder setThreadId(Integer threadId);
+        public abstract Notification.Builder setTimeUtc(Instant timeUtc);
+        //TODO: public abstract Notification.Builder setException(Exception_ exception);
+        public abstract Notification.Builder setDescriptor(ReportingDescriptorReference descriptor);
+        public abstract Notification.Builder setAssociatedRule(ReportingDescriptorReference associatedRule);
+        public abstract Notification.Builder setProperties(PropertyBag properties);
+        public abstract Notification build();
+    }
 }

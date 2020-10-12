@@ -20,9 +20,9 @@ public class PropertyBagSerializer extends StdSerializer<PropertyBag> {
     }
 
     @Override
-    public void serialize(PropertyBag properties, JsonGenerator jsonGenerator, SerializerProvider serializer) throws IOException {
-        Map<String, String> props = properties.getProperties();
-        Set<String> tags = properties.getTags();
+    public void serialize(PropertyBag bag, JsonGenerator jsonGenerator, SerializerProvider serializer) throws IOException {
+        Map<String, String> props = bag.properties();
+        Set<String> tags = bag.tags();
 
         jsonGenerator.writeStartObject();
 

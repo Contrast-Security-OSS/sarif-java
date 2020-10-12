@@ -1,36 +1,61 @@
 package io.codescan.sarif.model;
 
-import lombok.Data;
-import lombok.experimental.Accessors;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.auto.value.AutoValue;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * A suppression that is relevant to a result.
  */
-@Data
-@Accessors(chain = true)
-public class Suppression {
+@AutoValue
+public abstract class Suppression {
     /**
      * A stable, unique identifer for the suprression in the form of a GUID.
      */
-    private String guid;
+    @JsonProperty("guid")
+    @Nullable
+    public abstract String guid();
     /**
      * A string that indicates where the suppression is persisted.
      */
-    //TODO: private Kind kind;
+    //@JsonProperty("kind")
+    //@Nullable
+    //TODO: public abstract Kind kind();
     /**
      * A string that indicates the review status of the suppression.
      */
-    //TODO: private Status status;
+    //@JsonProperty("status")
+    //@Nullable
+    //TODO: public abstract Status status();
     /**
      * A string representing the justification for the suppression.
      */
-    private String justification;
+    @JsonProperty("justification")
+    @Nullable
+    public abstract String justification();
     /**
      * Identifies the location associated with the suppression.
      */
-    private Location location;
+    @JsonProperty("location")
+    @Nullable
+    public abstract Location location();
     /**
      * Key/value pairs that provide additional information about the suppression.
      */
-    private PropertyBag properties;
+    @JsonProperty("properties")
+    @Nullable
+    public abstract PropertyBag properties();
+    public static Suppression.Builder builder() {
+        return new AutoValue_Suppression.Builder();
+    }
+    @AutoValue.Builder
+    public abstract static class Builder {
+        public abstract Suppression.Builder setGuid(String guid);
+        //public abstract Suppression.Builder setKind(Kind kind);
+        //public abstract Suppression.Builder setStatus(Status status);
+        public abstract Suppression.Builder setJustification(String justification);
+        public abstract Suppression.Builder setLocation(Location location);
+        public abstract Suppression.Builder setProperties(PropertyBag properties);
+        public abstract Suppression build();
+    }
 }

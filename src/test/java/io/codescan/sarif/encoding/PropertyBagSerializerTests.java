@@ -13,17 +13,17 @@ public class PropertyBagSerializerTests {
 
     @Test
     public void propertyBagArbitraryKVs() throws Exception {
-        var bag = new PropertyBag();
+
         LinkedHashSet<String> tags = new LinkedHashSet<String>();
         tags.add("foo");
         tags.add("bar");
         tags.add("quux");
         tags.add("qaaz");
-        bag.setTags(tags);
         Map<String, String> m = new HashMap();
         m.put("akey", "aval");
         m.put("bkey", "bval");
-        bag.setProperties(m);
+
+        var bag = PropertyBag.builder().setTags(tags).setProperties(m).build();
 
         var bagJson = SarifJsonSerializer.toJson(bag);
 
@@ -40,11 +40,10 @@ public class PropertyBagSerializerTests {
 
     @Test
     public void GivenNullTags_WhenToJson_ThenNoTagsAreShown() throws Exception {
-        var bag = new PropertyBag();
         Map<String, String> m = new HashMap();
         m.put("akey", "aval");
         m.put("bkey", "bval");
-        bag.setProperties(m);
+        var bag = PropertyBag.builder().setProperties(m).build();
 
         var bagJson = SarifJsonSerializer.toJson(bag);
 
@@ -59,12 +58,11 @@ public class PropertyBagSerializerTests {
     }
     @Test
     public void GivenEmptyTags_WhenToJson_ThenEmptyTagsAreShown() throws Exception {
-        var bag = new PropertyBag();
         Map<String, String> m = new HashMap();
         m.put("akey", "aval");
         m.put("bkey", "bval");
-        bag.setProperties(m);
-        bag.setTags(new LinkedHashSet<String>());
+        var bag = PropertyBag.builder().setTags(new LinkedHashSet<String>()).setProperties(m).build();
+
 
         var bagJson = SarifJsonSerializer.toJson(bag);
 
@@ -81,14 +79,12 @@ public class PropertyBagSerializerTests {
 
     @Test
     public void GivenEmptyProps_WhenToJson_ThenNoPropsAreShown() throws Exception {
-        var bag = new PropertyBag();
         Map<String, String> m = new HashMap();
-        bag.setProperties(m);
         var tags = new LinkedHashSet<String>();
         tags.add("foo");
         tags.add("bar");
-        bag.setTags(tags);
 
+        var bag = PropertyBag.builder().setTags(tags).setProperties(m).build();
         var bagJson = SarifJsonSerializer.toJson(bag);
 
         JsonNode actual = new ObjectMapper().readTree(bagJson);
@@ -102,12 +98,11 @@ public class PropertyBagSerializerTests {
 
     @Test
     public void GivenNullProps_WhenToJson_ThenNoPropsAreShown() throws Exception {
-        var bag = new PropertyBag();
         var tags = new LinkedHashSet<String>();
         tags.add("foo");
         tags.add("bar");
-        bag.setTags(tags);
 
+        var bag = PropertyBag.builder().setTags(tags).build();
         var bagJson = SarifJsonSerializer.toJson(bag);
 
         JsonNode actual = new ObjectMapper().readTree(bagJson);
@@ -121,8 +116,7 @@ public class PropertyBagSerializerTests {
 
     @Test
     public void GivenNullPropsAndTags_WhenToJson_ThenNoPropsOrTagsAreShown() throws Exception {
-        var bag = new PropertyBag();
-
+        var bag = PropertyBag.builder().build();
         var bagJson = SarifJsonSerializer.toJson(bag);
 
         JsonNode actual = new ObjectMapper().readTree(bagJson);
@@ -136,10 +130,10 @@ public class PropertyBagSerializerTests {
 
     @Test
     public void GivenEmptyPropsAndTags_WhenToJson_ThenEmptyTagsAreOnlyShown() throws Exception {
-        var bag = new PropertyBag();
-        bag.setProperties(new HashMap<String, String>());
-        bag.setTags(new LinkedHashSet<String>());
+        var m = new HashMap<String, String>();
+        var tags = new LinkedHashSet<String>();
 
+        var bag = PropertyBag.builder().setTags(tags).setProperties(m).build();
         var bagJson = SarifJsonSerializer.toJson(bag);
 
         JsonNode actual = new ObjectMapper().readTree(bagJson);
@@ -150,4 +144,5 @@ public class PropertyBagSerializerTests {
 
         assertEquals(expected, actual);
     }
+
 }

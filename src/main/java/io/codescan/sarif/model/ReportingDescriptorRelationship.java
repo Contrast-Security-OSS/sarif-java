@@ -1,31 +1,50 @@
 package io.codescan.sarif.model;
 
-import lombok.Data;
-import lombok.experimental.Accessors;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.auto.value.AutoValue;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Set;
 
 /**
  * Information about the relation of one reporting descriptor to another.
  */
-@Data
-@Accessors(chain = true)
-public class ReportingDescriptorRelationship {
+@AutoValue
+public abstract class ReportingDescriptorRelationship {
     /**
      * A reference to the related reporting descriptor.
      */
-    private ReportingDescriptorReference target;
+    @JsonProperty("target")
+    @Nullable
+    public abstract ReportingDescriptorReference target();
     /**
      * A set of distinct strings that categorize the relationship. Well-known kinds include 'canPrecede', 'canFollow',
      * 'willPrecede', 'willFollow', 'superset', 'subset', 'equal', 'disjoint', 'relevant', and 'incomparable'.
      */
-    private Set<String> kinds;
+    @JsonProperty("kinds")
+    @Nullable
+    public abstract Set<String> kinds();
     /**
      * A description of the reporting descriptor relationship.
      */
-    private Message description;
+    @JsonProperty("description")
+    @Nullable
+    public abstract Message description();
     /**
      * "Key/value pairs that provide additional information about the reporting descriptor reference.
      */
-    private PropertyBag properties;
+    @JsonProperty("properties")
+    @Nullable
+    public abstract PropertyBag properties();
+    public static ReportingDescriptorRelationship.Builder builder() {
+        return new AutoValue_ReportingDescriptorRelationship.Builder();
+    }
+    @AutoValue.Builder
+    public abstract static class Builder {
+        public abstract ReportingDescriptorRelationship.Builder setTarget(ReportingDescriptorReference target);
+        public abstract ReportingDescriptorRelationship.Builder setKinds(Set<String> kinds);
+        public abstract ReportingDescriptorRelationship.Builder setDescription(Message description);
+        public abstract ReportingDescriptorRelationship.Builder setProperties(PropertyBag properties);
+        public abstract ReportingDescriptorRelationship build();
+    }
 }
