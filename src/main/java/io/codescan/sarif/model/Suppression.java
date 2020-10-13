@@ -18,15 +18,15 @@ public abstract class Suppression {
     /**
      * A string that indicates where the suppression is persisted.
      */
-    //@JsonProperty("kind")
-    //@Nullable
-    //TODO: public abstract Kind kind();
+    @JsonProperty("kind")
+    @Nullable
+    public abstract SuppressionKind kind();
     /**
      * A string that indicates the review status of the suppression.
      */
-    //@JsonProperty("status")
-    //@Nullable
-    //TODO: public abstract Status status();
+    @JsonProperty("status")
+    @Nullable
+    public abstract SuppressionStatus status();
     /**
      * A string representing the justification for the suppression.
      */
@@ -51,8 +51,8 @@ public abstract class Suppression {
     @AutoValue.Builder
     public abstract static class Builder {
         public abstract Suppression.Builder setGuid(String guid);
-        //public abstract Suppression.Builder setKind(Kind kind);
-        //public abstract Suppression.Builder setStatus(Status status);
+        public abstract Suppression.Builder setKind(SuppressionKind kind);
+        public abstract Suppression.Builder setStatus(SuppressionStatus status);
         public abstract Suppression.Builder setJustification(String justification);
         public abstract Suppression.Builder setLocation(Location location);
         public abstract Suppression.Builder setProperties(PropertyBag properties);

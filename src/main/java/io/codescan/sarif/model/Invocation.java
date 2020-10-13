@@ -54,15 +54,15 @@ public abstract class Invocation {
     /**
      * An array of configurationOverride objects that describe rules related runtime overrides.
      */
-    //@JsonProperty("ruleConfigurationOverrides")
-    //@Nullable
-    //TODO: public abstract List<ConfigurationOverride> ruleConfigurationOverrides();
+    @JsonProperty("ruleConfigurationOverrides")
+    @Nullable
+    public abstract List<ConfigurationOverride> ruleConfigurationOverrides();
     /**
      * An array of configurationOverride objects that describe notifications related runtime overrides.
      */
-    //@JsonProperty("notificationConfigurationOverrides")
-    //@Nullable
-    //TODO: public abstract List<ConfigurationOverride> notificationConfigurationOverrides();
+    @JsonProperty("notificationConfigurationOverrides")
+    @Nullable
+    public abstract List<ConfigurationOverride> notificationConfigurationOverrides();
     /**
      * A list of runtime conditions detected by the tool during the analysis.
      */
@@ -182,8 +182,8 @@ public abstract class Invocation {
         public abstract Invocation.Builder setStartTimeUtc(Instant startTimeUtc);
         public abstract Invocation.Builder setEndTimeUtc(Instant endTimeUtc);
         public abstract Invocation.Builder setExitCode(Integer exitCode);
-        //TODO: public abstract Invocation.Builder setRuleConfigurationOverrides(List<ConfigurationOverride> ruleConfigurationOverrides);
-        //TODO: public abstract Invocation.Builder setNotificationConfigurationOverrides(List<ConfigurationOverride> notificationConfigurationOverrides);
+        public abstract Invocation.Builder setRuleConfigurationOverrides(List<ConfigurationOverride> ruleConfigurationOverrides);
+        public abstract Invocation.Builder setNotificationConfigurationOverrides(List<ConfigurationOverride> notificationConfigurationOverrides);
         public abstract Invocation.Builder setToolExecutionNotifications(List<Notification> toolExecutionNotifications);
         public abstract Invocation.Builder setToolConfigurationNotifications(List<Notification> toolConfigurationNotifications);
         public abstract Invocation.Builder setExitCodeDescription(String exitCodeDescription);

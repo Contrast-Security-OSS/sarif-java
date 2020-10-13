@@ -38,9 +38,11 @@ public abstract class Location {
     @JsonProperty("message")
     @Nullable
     public abstract Message message();
+
     public static Location.Builder builder() {
         return new AutoValue_Location.Builder();
     }
+
     @AutoValue.Builder
     public abstract static class Builder {
         public abstract Location.Builder setId(Integer id);

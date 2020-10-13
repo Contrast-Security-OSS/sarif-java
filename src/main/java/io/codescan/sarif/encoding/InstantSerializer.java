@@ -20,7 +20,6 @@ public class InstantSerializer extends StdSerializer<Instant> {
 
     @Override
     public void serialize(Instant instant, JsonGenerator jsonGenerator, SerializerProvider serializer) throws IOException {
-        //TODO: convert 'instant' to utc date-time sarif format.
         var fmt = new DateTimeFormatterBuilder().appendInstant().toFormatter();
         jsonGenerator.writeString(fmt.format(instant));
     }

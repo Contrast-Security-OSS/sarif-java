@@ -37,7 +37,6 @@ public abstract class Result {
      * space is limited.
      */
     @JsonProperty("message")
-    @Nullable
     public abstract Message message();
     /**
      * The set of locations where the result was detected. Specify only one location unless the problem indicated by
@@ -179,9 +178,11 @@ public abstract class Result {
     @JsonProperty("properties")
     @Nullable
     public abstract PropertyBag properties();
+
     public static Result.Builder builder() {
         return new AutoValue_Result.Builder();
     }
+
     @AutoValue.Builder
     public abstract static class Builder {
         public abstract Result.Builder setRuleId(String ruleId);

@@ -46,9 +46,9 @@ public abstract class Notification {
     /**
      * The runtime exception, if any, relevant to this notification.
      */
-    //@JsonProperty("exception")
-    //@Nullable
-    //TODO: public abstract Exception_ exception();
+    @JsonProperty("exception")
+    @Nullable
+    public abstract Exception exception();
     /**
      * A reference used to locate the descriptor relevant to this notification.
      */
@@ -77,7 +77,7 @@ public abstract class Notification {
         public abstract Notification.Builder setLevel(Level level);
         public abstract Notification.Builder setThreadId(Integer threadId);
         public abstract Notification.Builder setTimeUtc(Instant timeUtc);
-        //TODO: public abstract Notification.Builder setException(Exception_ exception);
+        public abstract Notification.Builder setException(Exception exception);
         public abstract Notification.Builder setDescriptor(ReportingDescriptorReference descriptor);
         public abstract Notification.Builder setAssociatedRule(ReportingDescriptorReference associatedRule);
         public abstract Notification.Builder setProperties(PropertyBag properties);
