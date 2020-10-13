@@ -14,7 +14,6 @@ public abstract class MultiformatMessageString {
      * A plain text message string or format string.
      */
     @JsonProperty("text")
-    @Nullable
     public abstract String text();
     /**
      * A Markdown message string or format string.

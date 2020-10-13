@@ -22,7 +22,6 @@ public abstract class CodeFlow {
      * thread of execution.
      */
     @JsonProperty("threadFlows")
-    @Nullable
     public abstract List<ThreadFlow> threadFlows();
 
     /**

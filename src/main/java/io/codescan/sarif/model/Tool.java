@@ -15,7 +15,6 @@ public abstract class Tool {
      * The analysis tool that was run.
      */
     @JsonProperty("driver")
-    @Nullable
     public abstract ToolComponent driver();
 
     /**
@@ -31,9 +30,11 @@ public abstract class Tool {
     @JsonProperty("properties")
     @Nullable
     public abstract PropertyBag properties();
+
     public static Tool.Builder builder() {
         return new AutoValue_Tool.Builder();
     }
+
     @AutoValue.Builder
     public abstract static class Builder {
         public abstract Tool.Builder setDriver(ToolComponent driver);

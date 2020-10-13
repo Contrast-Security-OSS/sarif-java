@@ -12,7 +12,6 @@ public abstract class Conversion {
      * A tool object that describes the converter.
      */
     @JsonProperty("tool")
-    @Nullable
     public abstract Tool tool();
     /**
      * An invocation object that describes the invocation of the converter.

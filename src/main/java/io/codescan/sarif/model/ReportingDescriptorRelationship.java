@@ -15,7 +15,6 @@ public abstract class ReportingDescriptorRelationship {
      * A reference to the related reporting descriptor.
      */
     @JsonProperty("target")
-    @Nullable
     public abstract ReportingDescriptorReference target();
     /**
      * A set of distinct strings that categorize the relationship. Well-known kinds include 'canPrecede', 'canFollow',

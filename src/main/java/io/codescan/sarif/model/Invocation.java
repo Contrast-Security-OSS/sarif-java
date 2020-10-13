@@ -103,7 +103,6 @@ public abstract class Invocation {
      * Specifies whether the tool's execution completed successfully.
      */
     @JsonProperty("executionSuccessful")
-    @Nullable
     public abstract Boolean executionSuccessful();
     /**
      * The machine on which the invocation occurred.

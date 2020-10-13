@@ -33,7 +33,6 @@ public abstract class ToolComponent {
      * The name of the tool component.
      */
     @JsonProperty("name")
-    @Nullable
     public abstract String name();
 
     /**

@@ -63,6 +63,6 @@ public abstract class Artifact {
         public abstract Artifact.Builder setLength(Integer length);
         public abstract Artifact.Builder setSourceLanguage(String sourceLanguage);
         public abstract Artifact.Builder setHashes(Map<String, String> hashes);
-        abstract Artifact build();
+        public abstract Artifact build();
     }
 }

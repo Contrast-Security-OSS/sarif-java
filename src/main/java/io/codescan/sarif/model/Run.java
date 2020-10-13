@@ -18,7 +18,6 @@ public abstract class Run {
      * as context around the tool run (tool command-line arguments and the like) is identical for all aggregated files.
      */
     @JsonProperty("tool")
-    @Nullable
     public abstract Tool tool();
     /**
      * Describes the invocation of the analysis tool.

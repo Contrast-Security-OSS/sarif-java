@@ -18,7 +18,6 @@ public abstract class ReportingDescriptor {
      * A stable, opaque identifier for the report.
      */
     @JsonProperty("id")
-    @Nullable
     public abstract String id();
 
     /**
