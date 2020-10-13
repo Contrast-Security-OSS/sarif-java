@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.auto.value.AutoValue;
 import org.jetbrains.annotations.Nullable;
 
+import java.time.Instant;
+import java.util.List;
 import java.util.Map;
 
 @AutoValue
@@ -39,6 +41,24 @@ public abstract class Artifact {
     @Nullable
     public abstract Integer length();
     /**
+     * The role or roles played by the artifact in the analysis.
+     */
+    @JsonProperty("roles")
+    @Nullable
+    public abstract List<ArtifactRole> roles();
+    /**
+     * The MIME type (RFC 2045) of the artifact.
+     */
+    @JsonProperty("mimeType")
+    @Nullable
+    public abstract String mimeType();
+    /**
+     * Specifies the encoding for an artifact object that refers to a text file
+     */
+    @JsonProperty("encoding")
+    @Nullable
+    public abstract String encoding();
+    /**
      * Specifies the source language for any artifact object that refers to a text file that contains source code.
      */
     @JsonProperty("sourceLanguage")
@@ -51,9 +71,24 @@ public abstract class Artifact {
     @JsonProperty("hashes")
     @Nullable
     public abstract Map<String, String> hashes();
+    /**
+     * The Coordinated Universal Time (UTC) date and time at which the artifact was most recently modified.
+     * See \"Date/time properties\" in the SARIF spec for the required format.
+     */
+    @JsonProperty("lastModifiedTimeUtc")
+    @Nullable
+    public abstract Instant lastModifiedTimeUtc();
+    /**
+     * Key/value pairs that provide additional information about the artifact.
+     */
+    @JsonProperty("properties")
+    @Nullable
+    public abstract PropertyBag properties();
+
     public static Artifact.Builder builder() {
         return new AutoValue_Artifact.Builder();
     }
+
     @AutoValue.Builder
     public abstract static class Builder {
         public abstract Artifact.Builder setDescription(Message description);
@@ -61,8 +96,13 @@ public abstract class Artifact {
         public abstract Artifact.Builder setParentIndex(Integer parentIndex);
         public abstract Artifact.Builder setOffset(Integer offset);
         public abstract Artifact.Builder setLength(Integer length);
+        public abstract Artifact.Builder setRoles(List<ArtifactRole> roles);
+        public abstract Artifact.Builder setMimeType(String mimeType);
+        public abstract Artifact.Builder setEncoding(String encoding);
         public abstract Artifact.Builder setSourceLanguage(String sourceLanguage);
         public abstract Artifact.Builder setHashes(Map<String, String> hashes);
+        public abstract Artifact.Builder setLastModifiedTimeUtc(Instant t);
+        public abstract Artifact.Builder setProperties(PropertyBag bag);
         public abstract Artifact build();
     }
 }
