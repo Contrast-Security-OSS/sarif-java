@@ -3,7 +3,6 @@ package com.contrastsecurity.sarif.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.auto.value.AutoValue;
 import java.util.*;
-
 import org.jetbrains.annotations.Nullable;
 
 /** Describes a runtime exception encountered during the execution of an analysis tool. */
