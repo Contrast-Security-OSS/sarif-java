@@ -12,10 +12,19 @@
   <url>https://github.com/Contrast-Security-OSS/sarif-java</url>
 
   <properties>
+    <coveo.goal>format</coveo.goal>
+    <coveo.version>2.10</coveo.version>
+
     <java.version>1.8</java.version>
     <junit.jupiter.version>5.6.2</junit.jupiter.version>
     <jackson.databind.version>2.11.2</jackson.databind.version>
     <autovalue.version>1.7.4</autovalue.version>
+    <versions.puppycrawl-checkstyle>8.36.2</versions.puppycrawl-checkstyle>
+    <versions.sevntu-checkstyle>1.32.0</versions.sevntu-checkstyle>
+
+    <versions.plugins.maven-enforcer-plugin>3.0.0-M3</versions.plugins.maven-enforcer-plugin>
+    <versions.plugins.maven-compiler-plugin>3.8.1</versions.plugins.maven-compiler-plugin>
+    <versions.plugins.maven-checkstyle-plugin>3.1.1</versions.plugins.maven-checkstyle-plugin>
   </properties>
 
   <licenses>
@@ -61,12 +70,80 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.1</version>
+        <version>${versions.plugins.maven-compiler-plugin}</version>
         <configuration>
           <source>11</source>
           <target>11</target>
         </configuration>
       </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>${versions.plugins.maven-enforcer-plugin}</version>
+        <configuration>
+          <rules>
+            <DependencyConvergence/>
+          </rules>
+        </configuration>
+        <executions>
+          <execution>
+            <id>enforce</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <phase>validate</phase>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>com.coveo</groupId>
+        <artifactId>fmt-maven-plugin</artifactId>
+        <version>${coveo.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>${coveo.goal}</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>${versions.plugins.maven-checkstyle-plugin}</version>
+        <configuration>
+          <encoding>UTF-8</encoding>
+          <consoleOutput>true</consoleOutput>
+          <failsOnError>true</failsOnError>
+          <linkXRef>false</linkXRef>
+          <includeTestSourceDirectory>true</includeTestSourceDirectory>
+          <configLocation>checkstyle.xml</configLocation>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>com.puppycrawl.tools</groupId>
+            <artifactId>checkstyle</artifactId>
+            <version>${versions.puppycrawl-checkstyle}</version>
+          </dependency>
+          <dependency>
+            <groupId>com.github.sevntu-checkstyle</groupId>
+            <artifactId>sevntu-checkstyle-maven-plugin</artifactId>
+            <version>${versions.sevntu-checkstyle}</version>
+          </dependency>
+        </dependencies>
+        <executions>
+          <execution>
+            <id>lint</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
     </plugins>
   </build>
 
@@ -82,4 +159,20 @@
       <url>https://contrastsecurity.jfrog.io/contrastsecurity/maven-umbrella</url>
     </snapshotRepository>
   </distributionManagement>
+
+  <profiles>
+    <profile>
+      <id>ci</id>
+      <activation>
+        <property>
+          <name>env.CI</name>
+        </property>
+      </activation>
+      <properties>
+        <!-- when running in CI we enforce formatting rather than applying it -->
+        <prettier.goal>check</prettier.goal>
+        <coveo.goal>check</coveo.goal>
+      </properties>
+    </profile>
+  </profiles>
 </project>

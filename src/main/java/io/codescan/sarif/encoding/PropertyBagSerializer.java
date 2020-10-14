@@ -4,42 +4,41 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import io.codescan.sarif.model.PropertyBag;
-
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-public class PropertyBagSerializer extends StdSerializer<PropertyBag> {
-    public PropertyBagSerializer() {
-        this(null);
+public final class PropertyBagSerializer extends StdSerializer<PropertyBag> {
+  public PropertyBagSerializer() {
+    this(null);
+  }
+
+  public PropertyBagSerializer(Class<PropertyBag> t) {
+    super(t);
+  }
+
+  @Override
+  public void serialize(PropertyBag bag, JsonGenerator jsonGenerator, SerializerProvider serializer)
+      throws IOException {
+    Map<String, String> props = bag.properties();
+    Set<String> tags = bag.tags();
+
+    jsonGenerator.writeStartObject();
+
+    if (props != null) {
+      for (Map.Entry<String, String> entry : props.entrySet()) {
+        jsonGenerator.writeStringField(entry.getKey(), entry.getValue());
+      }
     }
 
-    public PropertyBagSerializer(Class<PropertyBag> t) {
-        super(t);
+    if (tags != null) {
+      jsonGenerator.writeArrayFieldStart("tags");
+      for (String val : tags) {
+        jsonGenerator.writeString(val);
+      }
+      jsonGenerator.writeEndArray();
     }
 
-    @Override
-    public void serialize(PropertyBag bag, JsonGenerator jsonGenerator, SerializerProvider serializer) throws IOException {
-        Map<String, String> props = bag.properties();
-        Set<String> tags = bag.tags();
-
-        jsonGenerator.writeStartObject();
-
-        if (props != null) {
-            for (Map.Entry<String, String> entry: props.entrySet()) {
-                jsonGenerator.writeStringField(entry.getKey(), entry.getValue());
-            }
-        }
-
-        if (tags != null) {
-            jsonGenerator.writeArrayFieldStart("tags");
-            for (String val : tags) {
-                jsonGenerator.writeString(val);
-            }
-            jsonGenerator.writeEndArray();
-        }
-
-        jsonGenerator.writeEndObject();
-    }
+    jsonGenerator.writeEndObject();
+  }
 }
