@@ -12,7 +12,7 @@ public abstract class PropertyBag {
 
   @JsonProperty("properties")
   @Nullable
-  public abstract Map<String, String> properties();
+  public abstract Map<String, Object> properties();
   /**
    * A set of distinct strings that provide additional information.
    *
@@ -28,7 +28,7 @@ public abstract class PropertyBag {
 
   @AutoValue.Builder
   public abstract static class Builder {
-    public abstract PropertyBag.Builder setProperties(Map<String, String> properties);
+    public abstract PropertyBag.Builder setProperties(Map<String, Object> properties);
 
     public abstract PropertyBag.Builder setTags(LinkedHashSet<String> tags);
 

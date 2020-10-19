@@ -20,14 +20,14 @@ public final class PropertyBagSerializer extends StdSerializer<PropertyBag> {
   @Override
   public void serialize(PropertyBag bag, JsonGenerator jsonGenerator, SerializerProvider serializer)
       throws IOException {
-    Map<String, String> props = bag.properties();
+    Map<String, Object> props = bag.properties();
     Set<String> tags = bag.tags();
 
     jsonGenerator.writeStartObject();
 
     if (props != null) {
-      for (Map.Entry<String, String> entry : props.entrySet()) {
-        jsonGenerator.writeStringField(entry.getKey(), entry.getValue());
+      for (Map.Entry<String, Object> entry : props.entrySet()) {
+        jsonGenerator.writeObjectField(entry.getKey(), entry.getValue());
       }
     }
 

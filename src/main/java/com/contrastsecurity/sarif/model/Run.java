@@ -149,6 +149,13 @@ public abstract class Run {
   // @Nullable
   // TODO: public abstract List<WebResponse> webResponses();
 
+  // TODO: specialLocations
+
+  /** Key/value pairs that provide additional information about the run. */
+  @JsonProperty("properties")
+  @Nullable
+  public abstract PropertyBag properties();
+
   public static Run.Builder builder() {
     return new AutoValue_Run.Builder();
   }
@@ -198,6 +205,9 @@ public abstract class Run {
     public abstract Run.Builder setPolicies(List<ToolComponent> policies);
     // public abstract Run.Builder setWebRequests(List<WebRequest> webRequests);
     // public abstract Run.Builder setWebResponses(List<WebResponse> webResponses);
+    // setSpecialLocation()
+    public abstract Run.Builder setProperties(PropertyBag bag);
+
     public abstract Run build();
   }
 }

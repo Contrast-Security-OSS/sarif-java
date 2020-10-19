@@ -18,7 +18,7 @@ public class PropertyBagSerializerTests {
     tags.add("bar");
     tags.add("quux");
     tags.add("qaaz");
-    Map<String, String> m = new HashMap();
+    Map<String, Object> m = new HashMap();
     m.put("akey", "aval");
     m.put("bkey", "bval");
 
@@ -42,7 +42,7 @@ public class PropertyBagSerializerTests {
 
   @Test
   public void GivenNullTags_WhenToJson_ThenNoTagsAreShown() throws Exception {
-    Map<String, String> m = new HashMap();
+    Map<String, Object> m = new HashMap();
     m.put("akey", "aval");
     m.put("bkey", "bval");
     var bag = PropertyBag.builder().setProperties(m).build();
@@ -64,7 +64,7 @@ public class PropertyBagSerializerTests {
 
   @Test
   public void GivenEmptyTags_WhenToJson_ThenEmptyTagsAreShown() throws Exception {
-    Map<String, String> m = new HashMap();
+    Map<String, Object> m = new HashMap();
     m.put("akey", "aval");
     m.put("bkey", "bval");
     var bag = PropertyBag.builder().setTags(new LinkedHashSet<String>()).setProperties(m).build();
@@ -87,7 +87,7 @@ public class PropertyBagSerializerTests {
 
   @Test
   public void GivenEmptyProps_WhenToJson_ThenNoPropsAreShown() throws Exception {
-    Map<String, String> m = new HashMap();
+    Map<String, Object> m = new HashMap();
     var tags = new LinkedHashSet<String>();
     tags.add("foo");
     tags.add("bar");
@@ -136,7 +136,7 @@ public class PropertyBagSerializerTests {
 
   @Test
   public void GivenEmptyPropsAndTags_WhenToJson_ThenEmptyTagsAreOnlyShown() throws Exception {
-    var m = new HashMap<String, String>();
+    var m = new HashMap<String, Object>();
     var tags = new LinkedHashSet<String>();
 
     var bag = PropertyBag.builder().setTags(tags).setProperties(m).build();
@@ -146,6 +146,34 @@ public class PropertyBagSerializerTests {
     JsonNode expected =
         new ObjectMapper()
             .readTree(new StringBuilder().append("{").append("\"tags\":[]}").toString());
+
+    assertEquals(expected, actual);
+  }
+
+  @Test
+  public void GivenProperties_WhenObjectTypesMixed_ThenEncodesAsCorrectObjectTypes()
+      throws Exception {
+    var m = new HashMap<String, Object>();
+    m.put("myint", 42);
+    m.put("mystr", String.valueOf(42));
+    m.put("myfloat", (float) 123.45);
+    m.put("myarray", List.of("item1", "item2", "item3"));
+    m.put("mymap", Map.of("k1", "v1", "k2", "v2"));
+
+    var bag = PropertyBag.builder().setProperties(m).build();
+    var bagJson = SarifJsonSerializer.toJson(bag);
+
+    JsonNode actual = new ObjectMapper().readTree(bagJson);
+    JsonNode expected =
+        new ObjectMapper()
+            .readTree(
+                "{"
+                    + "\"myint\": 42,"
+                    + "\"mystr\": \"42\","
+                    + "\"myfloat\": 123.45,"
+                    + "\"myarray\": [\"item1\", \"item2\", \"item3\"],"
+                    + "\"mymap\":{\"k1\": \"v1\", \"k2\": \"v2\"}"
+                    + "}");
 
     assertEquals(expected, actual);
   }
